@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { auth, googleAuthProvider, twitterAuthProvider } from '../firebase'
+import { auth, googleAuthProvider, facebookAuthProiver, app } from '../firebase'
 import { withRouter } from 'react-router-dom'
 import './SignIn.scss'
-
-// import { doCreateUserWithEmailAndPassword } from '../auth/auth'
+import { Redirect } from 'react-router-dom'
+import { Toaster, Intent, Position } from '@blueprintjs/core'
 
 const SignInPage = ({ history }) => (
   <div>
@@ -14,74 +14,111 @@ const SignInPage = ({ history }) => (
 )
 
 const INITIAL_STATE = { email: '', password: '', error: null }
-const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value,
-})
+// const updateByPropertyName = (propertyName, value) => () => ({
+//   [propertyName]: value,
+// })
 
 class SignIn extends Component {
   constructor(props) {
     super(props)
-    this.state = { ...INITIAL_STATE }
+    this.state = {
+      ...INITIAL_STATE,
+      redirect: false,
+    }
+    this.authWithEmailPassword = this.authWithEmailPassword.bind(this)
   }
 
-  // onSubmit(event) {
-  //   const { email, password } = this.state
-  //   const { history } = this.props
+  authWithEmailPassword(event) {
+    event.preventDefault()
+    const email = this.emailInput.value
+    const password = this.passwordInput.value
 
-  //   auth
-  //     .doSignInWithEmailAndPassword(email, password)
-  //     .then(() => {
-  //       this.setState(() => ({ ...INITIAL_STATE }))
-  //       history.push(routes.HOME)
-  //     })
-  //     .catch(error => {
-  //       this.setState(updateByPropertyName('error', error))
-  //     })
-
-  //   event.preventDefault()
-  // }
+    app
+      .auth()
+      .fetchProvidersForEmail(email)
+      .then(providers => {
+        if (providers.length === 0) {
+          // create user
+          return app.auth().createUserWithEmailAndPassword
+        } else if (providers.indexOf('password') === -1) {
+          // they used facebook
+          this.loginForm.reset()
+          this.toaster.show({
+            intent: Intent.WARNING,
+            message: 'Try alternative login...',
+          })
+        } else {
+          // sign user in
+          return app.auth().signInWithEmailAndPassword(email, password)
+        }
+      })
+      .then(user => {
+        if (user && user.email) {
+          this.loginForm.reset()
+          this.setState({ redirect: true })
+        }
+      })
+      .catch(error => {
+        this.toaster.show({ intent: Intent.DANGER, message: error.message })
+      })
+  }
 
   render() {
-    const { email, password, error } = this.state
-    const isInvalid = password === '' || email === ''
+    if (this.state.redirect === true) {
+      return <Redirect to="/dash" />
+    }
+    // const { email, password, error } = this.state
+    // const isInvalid = password === '' || email === ''
     return (
       <div className="SignIn">
+        <Toaster
+          className="toaster"
+          position={Position.TOP_RIGHT}
+          ref={element => (this.toaster = element)}
+        />
         <div className="sign-in-header">
           <img src="http://i65.tinypic.com/28chc93.png" />
-          <h1>Kitty City</h1>
+          <h1>Kitten Krazy</h1>
         </div>
 
         <div className="sign-in-body">
-          {/* <form onSubmit={this.onSubmit}>
-            <p>Username:</p>
-            <input
-              value={email}
-              onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
-              placeholder="Email"
-            />
-
-            <p>Password:</p>
-            <input
-              value={password}
-              onChange={event =>
-                this.setState(updateByPropertyName('password', event.target.value))
-              }
-              placeholder="Password"
-            />
-            <button disabled={isInvalid} type="submit">
-              Sign In
-            </button>
-
-            {error && <p>{error.message}</p>}
-          </form> */}
-          {/* <h3>OR</h3> */}
-
-          <button style={{}} onClick={() => auth.signInWithPopup(twitterAuthProvider)}>
-            Sign In With Twitter
+          <button style={{}} onClick={() => auth.signInWithPopup(facebookAuthProiver)}>
+            Log In With Facebook
           </button>
           <button style={{}} onClick={() => auth.signInWithPopup(googleAuthProvider)}>
-            Sign In With Google
+            Log In With Google
           </button>
+        </div>
+        <div className="create-account-form">
+          {/* <h4>OR</h4> */}
+          <form
+            onSubmit={event => this.authWithEmailPassword(event)}
+            ref={form => (this.loginForm = form)}
+          >
+            <label className="pt-label">
+              Email:
+              <input
+                style={{ width: '100%' }}
+                className="pt-input"
+                name="email"
+                type="email"
+                ref={input => (this.emailInput = input)}
+                placeholder="Insert Email..."
+              />
+            </label>
+            <label className="pt-label">
+              Password:
+              <input
+                style={{ width: '100%' }}
+                className="pt-input"
+                name="password"
+                type="password"
+                ref={input => (this.passwordInput = input)}
+                placeholder="Insert Password..."
+              />
+            </label>
+            <input style={{ width: '100%' }} type="submit" className="pt-button" value="Log In" />
+          </form>
         </div>
       </div>
     )
