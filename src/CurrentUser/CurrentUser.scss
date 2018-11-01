@@ -1,0 +1,33 @@
+.CurrentUser {
+  margin: 0px;
+  border: 1px solid #ccc;
+  display: flex;
+  /* justify-content: space-between; */
+  flex-direction: column;
+  width: 18vw;
+  height: 100vh;
+  background: #f2cc87; /* Old browsers */
+  background: -moz-linear-gradient(top, #f2cc87 0%, #ff7cdc 48%, #7af9f9 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    top,
+    #f2cc87 0%,
+    #ff7cdc 48%,
+    #7af9f9 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #f2cc87 0%, #ff7cdc 48%, #7af9f9 100%);
+  justify-content: center;
+}
+
+.CurrentUser--identification {
+  padding: 1em;
+  flex: 1;
+
+  button {
+    bottom: 0;
+  }
+}
+
+.CurrentUser--photo {
+  max-height: 150px;
+  object-fit: cover;
+}

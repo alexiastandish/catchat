@@ -1,28 +1,50 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import { auth, database } from './firebase'
+import CurrentUser from './CurrentUser/CurrentUser'
+import Dash from './Dash/Dash'
+import SignIn from './SignIn/SignIn'
+import './App.scss'
+import { BrowserRouter } from 'react-router-dom'
 
-class App extends Component {
+class Application extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      currentUser: null,
+    }
+  }
+  componentDidMount() {
+    auth.onAuthStateChanged(currentUser => {
+      console.log('currentUser', currentUser)
+      this.setState({ currentUser })
+    })
+  }
+
   render() {
+    const { currentUser } = this.state
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+      <BrowserRouter>
+        <div className="App">
+          {!currentUser && (
+            <div className="SignIn--page">
+              <div className="SignIn--form">
+                <SignIn />
+              </div>
+            </div>
+          )}
+          {currentUser && (
+            <div>
+              <CurrentUser user={currentUser}>
+                <Dash />
+              </CurrentUser>
+            </div>
+          )}
+        </div>
+      </BrowserRouter>
+    )
   }
 }
 
-export default App;
+export default Application

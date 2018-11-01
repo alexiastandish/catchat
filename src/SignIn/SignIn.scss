@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis:300,400,600,700|Monoton');
+
+.SignIn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+
+  .sign-in-body {
+    display: flex;
+    justify-content: center;
+  }
+
+  .sign-in-header {
+    // display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-direction: row;
+    text-align: center;
+  }
+  h1 {
+    font-family: 'Monoton', cursive;
+    font-size: 50px;
+    font-weight: lighter;
+    margin: 0px;
+  }
+
+  img {
+    width: 20%;
+    justify-content: center;
+  }
+}
