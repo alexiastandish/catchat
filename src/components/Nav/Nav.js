@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import * as Routes from './constants/Routes'
+// import * as Routes from '../../constants/Routes'
 
-const Navigation = () => (
+const Nav = () => (
   <div>
-    <ul>
+    {/* <ul>
       <li>
         <Link to={Routes.SIGN_IN}>Sign In</Link>
       </li>
@@ -18,8 +18,8 @@ const Navigation = () => (
       <li>
         <Link to={Routes.ACCOUNT}>Account</Link>
       </li>
-    </ul>
+    </ul> */}
   </div>
 )
 
-export default Navigation
+export default Nav

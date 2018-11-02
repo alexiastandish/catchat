@@ -4,6 +4,8 @@
 
 .App {
   height: 100%;
+  display: flex;
+  flex-direction: row;
 }
 
 .SignIn--page {
@@ -11,14 +13,14 @@
   width: 100%;
   height: 100vh;
   background: #f2cc87; /* Old browsers */
-  background: -moz-linear-gradient(top, #f2cc87 0%, #ff7cdc 48%, #7af9f9 100%); /* FF3.6-15 */
+  background: -moz-linear-gradient(top, #f2cc87 0%, #ff7cdc 68%, #7af9f9 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(
     top,
     #f2cc87 0%,
-    #ff7cdc 48%,
+    #ff7cdc 68%,
     #7af9f9 100%
   ); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #f2cc87 0%, #ff7cdc 48%, #7af9f9 100%);
+  background: linear-gradient(to bottom, #f2cc87 0%, #ff7cdc 68%, #7af9f9 100%);
   justify-content: center;
   align-items: center;
 
@@ -26,7 +28,7 @@
     background: white;
     width: 65vw;
     max-width: 600px;
-    height: 50vh;
+    height: 55vh;
     padding: 30px;
     // margin-bottom: 20px;
     // display: flex;

@@ -1,22 +1,41 @@
 import React from 'react'
-import { auth } from '../firebase'
 import PropTypes from 'prop-types'
 import './CurrentUser.scss'
+import { Link } from 'react-router-dom'
 
-const CurrentUser = ({ user }) => {
+function CurrentUser({ signOut, user }) {
   return (
     <div className="CurrentUser">
-      <img className="CurrentUser--photo" src={user.photoURL} alt={user.displayName} />
+      <div className="CurrentUser--container">
+        <img className="CurrentUser--photo" src={user.photoURL} alt={user.displayName} />
 
-      <div className="CurrentUser--identification">
-        <h3>{user.displayName}</h3>
-        <button onClick={() => auth.signOut()}>Sign Out</button>
+        <div className="CurrentUser--identification">
+          <h3 className="username">{user.displayName}</h3>
+
+          <Link to="/dash">
+            <i id="CurrentUser--button" className="fa fa-2x fa-home icon--button" />
+          </Link>
+          <br />
+
+          <Link to="/post">
+            <i id="CurrentUser--button" className="fa fa-2x fa-plus-circle icon--button" />
+          </Link>
+          <br />
+          <Link to="/chat">
+            <i id="CurrentUser--button" className="fa fa-2x fa-comments icon--button" />
+          </Link>
+        </div>
+
+        <button className="btn-hover color-1" onClick={signOut}>
+          <Link to="/">Sign Out</Link>
+        </button>
       </div>
     </div>
   )
 }
 
 CurrentUser.propTypes = {
+  signOut: PropTypes.func.isRequired,
   user: PropTypes.shape({
     displayName: PropTypes.string,
     email: PropTypes.string.isRequired,

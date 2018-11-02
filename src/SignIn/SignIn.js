@@ -77,20 +77,25 @@ class SignIn extends Component {
           ref={element => (this.toaster = element)}
         />
         <div className="sign-in-header">
-          <img src="http://i65.tinypic.com/28chc93.png" />
+          <img src="http://i65.tinypic.com/28chc93.png" alt="kitty" />
           <h1>Kitten Krazy</h1>
         </div>
 
         <div className="sign-in-body">
-          <button style={{}} onClick={() => auth.signInWithPopup(facebookAuthProiver)}>
+          <button
+            className="login--button"
+            onClick={() => auth.signInWithPopup(facebookAuthProiver)}
+          >
             Log In With Facebook
           </button>
-          <button style={{}} onClick={() => auth.signInWithPopup(googleAuthProvider)}>
+          <button
+            className="login--button"
+            onClick={() => auth.signInWithPopup(googleAuthProvider)}
+          >
             Log In With Google
           </button>
         </div>
         <div className="create-account-form">
-          {/* <h4>OR</h4> */}
           <form
             onSubmit={event => this.authWithEmailPassword(event)}
             ref={form => (this.loginForm = form)}
@@ -117,7 +122,12 @@ class SignIn extends Component {
                 placeholder="Insert Password..."
               />
             </label>
-            <input style={{ width: '100%' }} type="submit" className="pt-button" value="Log In" />
+            <input
+              style={{ width: '100%' }}
+              type="submit"
+              className="login--button"
+              value="Log In"
+            />
           </form>
         </div>
       </div>
