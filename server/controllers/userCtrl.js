@@ -1,6 +1,6 @@
 const newUser = (req, res) => {
   const db = req.app.get('db')
-  const { email, userPhotoURL } = req.body
+  const { email, userPhotoURL, displayName } = req.body
   const { userId } = req.params
   // console.log('req.params', req.params)
   // console.log('req.body', req.body)
@@ -9,7 +9,7 @@ const newUser = (req, res) => {
     .then(response => {
       console.log('response', response)
       if (!response[0]) {
-        db.user.addNewUser([userId, email, userPhotoURL])
+        db.user.addNewUser([userId, email, userPhotoURL, displayName])
       }
     })
     .catch(err => console.log('err', err))

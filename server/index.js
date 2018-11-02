@@ -5,6 +5,7 @@ const express = require('express'),
   massive = require('massive')
 require('dotenv').config()
 const { getCurrentUser, newUser } = require('./controllers/userCtrl')
+const { getDashPosts } = require('./controllers/dashCtrl')
 
 massive(process.env.CONNECTION_STRING)
   .then(db => {
@@ -16,6 +17,7 @@ app.use(bodyParser.json())
 
 app.get(`/api/currentUser/:userId`, getCurrentUser)
 app.post(`/api/currentUser/:userId`, newUser)
+app.get('/api/dashboard', getDashPosts)
 
 app.listen(port, () => {
   console.log('MARCO, POLO', port)

@@ -31,7 +31,7 @@ class App extends Component {
 
   authStateChange() {
     auth.onAuthStateChanged(currentUser => {
-      console.log('currentUser xxx', currentUser)
+      // console.log('currentUser xxx', currentUser)
       if (currentUser !== null) {
         this.setState({ currentUser, loading: false }, this.postUser)
       }
@@ -49,6 +49,7 @@ class App extends Component {
     axios.post(`/api/currentUser/${this.state.currentUser.uid}`, {
       email: this.state.currentUser.email,
       userPhotoURL: this.state.currentUser.photoURL,
+      displayName: this.state.currentUser.displayName,
     })
   }
 
