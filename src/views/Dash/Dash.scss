@@ -37,6 +37,8 @@
       position: fixed;
       width: 68%;
       overflow-y: scroll;
+      margin: 0 auto;
+      justify-content: center;
       // overflow: hidden;
     }
     ::-webkit-scrollbar {
@@ -49,7 +51,7 @@
     }
   }
 
-  ul {
-    font-size: 200px;
-  }
+  // ul {
+  //   font-size: 200px;
+  // }
 }

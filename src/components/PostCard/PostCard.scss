@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+.PostCard--container {
+  background: #ffffff;
+  padding: 10px;
+  margin: 0 auto;
+
+  .PostCard--header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+
+    .right--header {
+      flex-direction: row;
+      align-items: center;
+      display: flex;
+    }
+
+    h5 {
+      margin: 0px;
+      padding: 0px;
+      margin-left: 12px;
+    }
+
+    p {
+      margin: 0px;
+      padding: 0px;
+      font-size: 10px;
+    }
+    img {
+      object-fit: contain;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+    }
+  }
+  .PostCard--body {
+  }
+}

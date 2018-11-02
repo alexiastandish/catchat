@@ -31,25 +31,20 @@ class Dash extends Component {
           </div>
 
           <div className="Dash--posts">
-            <ul>
-              {this.state.posts.map((post, index) => {
-                console.log('post', post)
-                return (
-                  <div key={index}>
-                    <PostCard
-                      username={post.username}
-                      userPhoto={post.user_photo}
-                      postTitle={post.post_title}
-                      postBody={post.post_body}
-                      postTime={post.post_time}
-                    />
-                  </div>
-                )
-              })}
-              <li>post1</li>
-              <li>post2</li>
-              <li>post3</li>
-            </ul>
+            {this.state.posts.map((post, index) => {
+              console.log('post', post)
+              return (
+                <div key={index}>
+                  <PostCard
+                    username={post.username}
+                    userPhoto={post.user_photo}
+                    postTitle={post.post_title}
+                    postBody={post.post_body}
+                    postTime={post.post_time}
+                  />
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>
