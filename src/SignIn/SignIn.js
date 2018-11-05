@@ -64,7 +64,7 @@ class SignIn extends Component {
   }
 
   render() {
-    if (this.state.redirect === true) {
+    if (this.state.redirect && this.state.redirect === true) {
       return <Redirect to="/dash" />
     }
     // const { email, password, error } = this.state

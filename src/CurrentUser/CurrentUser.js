@@ -26,9 +26,11 @@ function CurrentUser({ signOut, user }) {
           </Link>
         </div>
 
-        <button className="btn-hover color-1" onClick={signOut}>
-          <Link to="/">Sign Out</Link>
-        </button>
+        <Link to="/" className="btn-hover color-1">
+          <button className="btn-hover color-1" onClick={signOut}>
+            Sign Out
+          </button>
+        </Link>
       </div>
     </div>
   )

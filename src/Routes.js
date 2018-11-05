@@ -9,7 +9,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Dash from './views/Dash/Dash'
-import SignIn from './SignIn/SignIn'
+// import SignIn from './SignIn/SignIn'
 import CurrentUser from './CurrentUser/CurrentUser'
 import Chat from './views/Chat/Chat'
 import Post from './views/Post/Post'
@@ -21,17 +21,14 @@ export default function Routes(props) {
   return (
     <Switch>
       <Route path="/dash" component={Dash} />
-      <Route path="/signIn" component={SignIn} />
+      {/* <Route path="/signIn" component={SignIn} /> */}
       <Route path="/currentUser" component={CurrentUser} />
       <Route path="/chat" component={Chat} />
       <Route path="/post" component={Post} />
       <Route path="/post/post" component={PostPost} />
       <Route path="/post/image" component={ImagePost} />
-      <Route
-        exact
-        path="/currentUser"
-        render={() => (props.isLoggedIn ? <Redirect to="/dash" /> : <SignIn />)}
-      />
+      <Route render={() => props && props.isLoggedIn && <Redirect to="/dash" />} />
+
       {/* <Redirect??? /> */}
     </Switch>
   )

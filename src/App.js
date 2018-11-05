@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { auth } from './firebase'
 import CurrentUser from './CurrentUser/CurrentUser'
-import Dash from './views/Dash/Dash'
 import SignIn from './SignIn/SignIn'
 import { ClipLoader } from 'react-spinners'
 import './App.scss'
 // import { PropTypes } from 'prop-types'
-import { BrowserRouter } from 'react-router-dom'
-import Nav from './components/Nav/Nav'
+import { BrowserRouter, Redirect } from 'react-router-dom'
 // import SignUpPage from './SignUp/SignUp'
 import axios from 'axios'
 import Routes from './Routes'
@@ -18,7 +16,7 @@ class App extends Component {
 
     this.state = {
       currentUser: null,
-      loading: true,
+      // loading: true,
     }
     this.authStateChange = this.authStateChange.bind(this)
     this.authSignOut = this.authSignOut.bind(this)
@@ -77,12 +75,7 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           {currentUser ? (
-            <div>
-              <CurrentUser user={currentUser} signOut={this.authSignOut}>
-                <Dash />
-                <Nav />
-              </CurrentUser>
-            </div>
+            <CurrentUser user={currentUser} signOut={this.authSignOut} />
           ) : (
             <div className="SignIn--page">
               <div className="SignIn--form">
