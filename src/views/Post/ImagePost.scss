@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis:300,400,600,700|Monoton');
+
+$orange: #f2cc87;
+$pink: #ff7cdc;
+$blue: #7af9f9;
+
+* {
+  box-sizing: border-box;
+}
+
+.ImagePost--image--section--width {
+  width: 85%;
+  margin: 0 auto;
+  background: #f2cc87; /* Old browsers */
+  background: -moz-linear-gradient(top, #f2cc87 0%, #ff7cdc 68%, #7af9f9 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    top,
+    #f2cc87 0%,
+    #ff7cdc 68%,
+    #7af9f9 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #f2cc87 0%, #ff7cdc 68%, #7af9f9 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0px;
+  padding-bottom: 80px;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 80vh;
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.05);
+  align-items: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    justify-content: center;
+    text-align: center;
+    width: 90%;
+    margin: 0 auto;
+
+    .firebase-image-input {
+      justify-content: center;
+      display: flex;
+      margin: 0 auto;
+      margin-top: 30px;
+    }
+
+    .kitten-gif {
+      // margin-right: 120px;
+      img {
+        width: 14rem;
+        // -webkit-filter: invert(100%);
+        // filter: invert(100%);
+        // -webkit-filter: opacity(50%);
+        // filter: opacity(50%);
+      }
+    }
+
+    label {
+      color: white;
+      // align-content: flex-start;
+      margin-top: 20px;
+      text-transform: uppercase;
+      padding: 10px;
+    }
+
+    input {
+      width: 100%;
+      align-items: flex-start;
+      height: 30px;
+    }
+
+    input[type='file'] {
+      color: white;
+      margin: 0 auto;
+      font-family: 'Dosis', sans-serif;
+    }
+
+    textarea {
+      border-radius: 5px;
+      margin: 12px;
+      font-family: 'Dosis', sans-serif;
+      border: none;
+      padding: 3px 5px;
+      font-size: 18px;
+      font-weight: bold;
+      color: $pink;
+      height: 35px;
+    }
+
+    textarea:focus {
+      outline: none;
+      border: 2px solid $pink;
+    }
+
+    .body-input {
+      height: 100px;
+      display: block;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: bold;
+      border: none;
+      color: $pink;
+    }
+
+    .body-input:focus {
+      outline: none;
+      border: 2px solid $pink;
+    }
+
+    .form-button {
+      background-color: rgba(255, 255, 255, 0.85);
+      border: 1px white solid;
+      // box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.1);
+      color: #ff7cdc;
+      font-size: 0.8rem;
+      font-weight: 600;
+      outline: none;
+      // padding: 0.5rem 1rem;
+      transition: 0.2s all;
+      font-family: 'Dosis', sans-serif;
+      width: 100px;
+      margin: 50px auto;
+      background-size: 300% 100%;
+      border-radius: 50px;
+      -moz-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      -webkit-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+
+    .form-button:hover {
+      background-image: linear-gradient(to right, #ff7cdc, #f2cc87, #7af9f9);
+      border-radius: 50px;
+      border: 1px white solid;
+      // box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.1);
+      color: #ff7cdc;
+      font-size: 0.8rem;
+      font-weight: 600;
+      outline: none;
+      // padding: 0.5rem 1rem;
+      transition: 0.2s all;
+      font-family: 'Dosis', sans-serif;
+      width: 100px;
+      margin: 50px auto;
+      background-position: 100% 0;
+      -moz-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      -webkit-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+  }
+}

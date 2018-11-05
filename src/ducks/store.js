@@ -1,10 +1,10 @@
 import { applyMiddleware, createStore, combineReducers } from 'redux'
 import promiseMiddleware from 'redux-promise-middleware'
-import itemReducer from './itemReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import userReducer from './userReducer'
 
 const combinedReducers = combineReducers({
-  item: itemReducer,
+  user: userReducer,
 })
 
 const store = createStore(

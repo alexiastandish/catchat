@@ -23,6 +23,8 @@ export const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
 export const facebookAuthProiver = new firebase.auth.FacebookAuthProvider()
 export const emailAndPassword = new firebase.auth.EmailAuthProvider()
 
+export const storage = firebase.storage()
+
 // export const doCreateUserWithEmailAndPassword = (email, password) => {
 //   auth.createUserWithEmailAndPassword(email, password)
 // }

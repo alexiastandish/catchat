@@ -4,11 +4,11 @@ import CurrentUser from './CurrentUser/CurrentUser'
 import SignIn from './SignIn/SignIn'
 import { ClipLoader } from 'react-spinners'
 import './App.scss'
-// import { PropTypes } from 'prop-types'
-import { BrowserRouter, Redirect } from 'react-router-dom'
-// import SignUpPage from './SignUp/SignUp'
+import store from './ducks/store'
+import { BrowserRouter } from 'react-router-dom'
 import axios from 'axios'
 import Routes from './Routes'
+import { Provider } from 'react-redux'
 
 class App extends Component {
   constructor(props) {
@@ -16,15 +16,24 @@ class App extends Component {
 
     this.state = {
       currentUser: null,
-      // loading: true,
+      currentUserInfo: {},
+      loading: true,
     }
     this.authStateChange = this.authStateChange.bind(this)
     this.authSignOut = this.authSignOut.bind(this)
     this.postUser = this.postUser.bind(this)
+    this.getCurrentUser = this.getCurrentUser.bind(this)
   }
 
   componentDidMount() {
     this.authStateChange()
+    // this.getCurrentUser()
+  }
+
+  getCurrentUser() {
+    axios.get(`/api/currentUser/${this.state.currentUser.uid}`).then(response => {
+      console.log('response', response)
+    })
   }
 
   authStateChange() {
@@ -51,13 +60,8 @@ class App extends Component {
     })
   }
 
-  // addNewUserToTable() {
-  //   axios.post(`/api/currentUser/${this.state.currentUser}`)
-  // }
-
   render() {
     console.log('this.state', this.state)
-    console.log('this.state.currentUser.UID', this.state.currentUser && this.state.currentUser.uid)
 
     const { currentUser, loading } = this.state
     if (loading === true) {
@@ -72,20 +76,22 @@ class App extends Component {
     }
 
     return (
-      <BrowserRouter>
-        <div className="App">
-          {currentUser ? (
-            <CurrentUser user={currentUser} signOut={this.authSignOut} />
-          ) : (
-            <div className="SignIn--page">
-              <div className="SignIn--form">
-                <SignIn />
+      <Provider store={store}>
+        <BrowserRouter>
+          <div className="App">
+            {currentUser ? (
+              <CurrentUser user={currentUser} signOut={this.authSignOut} />
+            ) : (
+              <div className="SignIn--page">
+                <div className="SignIn--form">
+                  <SignIn />
+                </div>
               </div>
-            </div>
-          )}
-          <Routes isLoggedIn={currentUser !== null} />
-        </div>
-      </BrowserRouter>
+            )}
+            <Routes user={currentUser} isLoggedIn={currentUser !== null} />
+          </div>
+        </BrowserRouter>
+      </Provider>
     )
   }
 }

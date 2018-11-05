@@ -9,7 +9,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Dash from './views/Dash/Dash'
-// import SignIn from './SignIn/SignIn'
 import CurrentUser from './CurrentUser/CurrentUser'
 import Chat from './views/Chat/Chat'
 import Post from './views/Post/Post'
@@ -18,15 +17,19 @@ import PostPost from './views/Post/PostPost'
 
 export default function Routes(props) {
   console.log('props.isLoggedIn', props.isLoggedIn)
+  console.log('props', props)
+  // console.log('this.props', this.props)
   return (
     <Switch>
-      <Route path="/dash" component={Dash} />
-      {/* <Route path="/signIn" component={SignIn} /> */}
+      {/* <Route path="/dash" component={Dash} /> */}
+      <Route path="/dash" render={() => <Dash {...props} />} />
       <Route path="/currentUser" component={CurrentUser} />
       <Route path="/chat" component={Chat} />
-      <Route path="/post" component={Post} />
-      <Route path="/post/post" component={PostPost} />
-      <Route path="/post/image" component={ImagePost} />
+      <Route path="/post" render={() => <Post {...props} />} />
+      {/* <Route path="/post/post" component={PostPost} /> */}
+      {/* <Route path="/post/post" render={() => <PostPost {...props} />} /> */}
+      {/* <Route path="/post/image" component={ImagePost} /> */}
+
       <Route render={() => props && props.isLoggedIn && <Redirect to="/dash" />} />
 
       {/* <Redirect??? /> */}

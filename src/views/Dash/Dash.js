@@ -13,13 +13,11 @@ class Dash extends Component {
 
   componentDidMount() {
     axios.get('/api/dashboard').then(response => {
-      console.log('response', response)
       this.setState({ posts: response.data })
     })
   }
 
   render() {
-    console.log('this.state.posts', this.state.posts)
     return (
       <div className="Dash--container">
         <div className="Dash--section--width">
@@ -32,7 +30,6 @@ class Dash extends Component {
 
           <div className="Dash--posts">
             {this.state.posts.map((post, index) => {
-              console.log('post', post)
               return (
                 <div key={index}>
                   <PostCard
