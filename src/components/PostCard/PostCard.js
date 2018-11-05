@@ -25,6 +25,7 @@ class PostCard extends Component {
   }
   render() {
     console.log('this.state', this.state)
+    console.log('this.props', this.props)
     const { imageCaption, imageURL } = this.state
     return (
       <div className="PostCard--container">
@@ -37,14 +38,12 @@ class PostCard extends Component {
         </div>
 
         <div className="PostCard--body">
-          {imageURL === '' ? (
-            <div className="post">
-              <h3>{this.props.postTitle}</h3>
-              <p>{this.props.postBody}</p>
-            </div>
-          ) : (
+          <div>
+            <h3>{this.props.postTitle}</h3>
+            <p>{this.props.postBody}</p>
+          </div>
+          {imageURL !== '' && (
             <div className="image-post">
-              <h3>{this.props.postTitle}</h3>
               <p>{imageCaption}</p>
               <div>
                 <img src={imageURL} />
