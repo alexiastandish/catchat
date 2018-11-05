@@ -38,6 +38,7 @@ class Dash extends Component {
                     postTitle={post.post_title}
                     postBody={post.post_body}
                     postTime={post.post_time}
+                    postId={post.post_id}
                   />
                 </div>
               )
