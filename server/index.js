@@ -6,7 +6,7 @@ const express = require('express'),
 require('dotenv').config()
 const { getCurrentUser, newUser } = require('./controllers/userCtrl')
 const { getDashPosts } = require('./controllers/dashCtrl')
-const { newPost } = require('./controllers/postCtrl')
+const { newPost, newImagePost } = require('./controllers/postCtrl')
 
 massive(process.env.CONNECTION_STRING)
   .then(db => {
@@ -21,7 +21,7 @@ app.post(`/api/currentUser/:userId`, newUser)
 app.get('/api/dashboard', getDashPosts)
 
 app.post(`/api/newPost`, newPost)
-// app.post(`/api/newImagePost`, newImagePost)
+app.post(`/api/newImagePost`, newImagePost)
 
 app.listen(port, () => {
   console.log('MARCO, POLO', port)

@@ -10,8 +10,10 @@ class ImagePost extends Component {
       postSubject: '',
       postImageURL: '',
       caption: '',
-      mood: '',
+      // mood: '',
     }
+    this.storageRef = storage.ref('/user-images').child('test')
+
     this.handlePostSubmit = this.handlePostSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleImageSelect = this.handleImageSelect.bind(this)
@@ -42,8 +44,8 @@ class ImagePost extends Component {
   }
 
   handleImagePostSubmit() {
-    const { postImageURL, caption } = this.state
-    this.props.addToImages({ postImageURL, caption })
+    const { caption, postImageURL } = this.state
+    this.props.addToImages(caption, postImageURL)
   }
 
   handleChange(event) {
@@ -76,7 +78,7 @@ class ImagePost extends Component {
               <FileInput />
             </div>
 
-            <option value="happy" className="" />
+            {/* <option value="happy" className="" /> */}
 
             <input type="submit" value="Submit" className="form-button" />
           </form>

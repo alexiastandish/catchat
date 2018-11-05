@@ -8,16 +8,31 @@ const newPost = (req, res) => {
   return res.status(200).send('okie dokie')
 }
 
-// const newImagePost = (req, res) => {
-//   console.log('req.body', req.body)
-//   const { userId, postSubject, imageCaption, imageURL } = req.body
-//   const db = req.app.get('db')
-//   db.posts.newPost([userId, postSubject])
-
-//   db.posts.newImagePost([imageCaption, imageURL])
-// }
+const newImagePost = async (req, res) => {
+  console.log('req.body', req.body)
+  const { userId, postSubject, imageCaption, imageURL, postId } = req.body
+  const db = req.app.get('db')
+  const post = await db.posts.newPostForImage([userId, postSubject])
+  console.log('POST', post)
+  db.posts.newImagePost([imageCaption, imageURL, postId])
+  return res.status(200).send('okie dokie')
+}
 
 module.exports = {
   newPost,
-  // newImagePost,
+  newImagePost,
 }
+
+// const addItem = async (req, res) => {
+//   // console.log('req.body', req.body)
+//   const { itemName, itemDescription, imageUrls, userId } = req.body
+//   const db = req.app.get('db')
+//   const item = await db.items.addItem([itemName, itemDescription, userId])
+//   // console.log('item', item)
+//   // console.log('item[0].items_id, imageUrls', item[0].items_id, imageUrls)
+
+//   imageUrls.forEach(async url => {
+//     await db.items.addImage(item[0].items_id, url)
+//   })
+//   return res.status(200).send('okie dokie')
+// }
