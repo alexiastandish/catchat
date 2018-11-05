@@ -2,6 +2,7 @@ import React from 'react'
 import './PostCard.scss'
 
 const PostCard = props => {
+  // const hasImage
   return (
     <div className="PostCard--container">
       <div className="PostCard--header">

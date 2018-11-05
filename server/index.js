@@ -5,7 +5,7 @@ const express = require('express'),
   massive = require('massive')
 require('dotenv').config()
 const { getCurrentUser, newUser } = require('./controllers/userCtrl')
-const { getDashPosts } = require('./controllers/dashCtrl')
+const { getDashPosts, getDashImage } = require('./controllers/dashCtrl')
 const { newPost, newImagePost } = require('./controllers/postCtrl')
 
 massive(process.env.CONNECTION_STRING)
@@ -19,6 +19,7 @@ app.use(bodyParser.json())
 app.get(`/api/currentUser/:userId`, getCurrentUser)
 app.post(`/api/currentUser/:userId`, newUser)
 app.get('/api/dashboard', getDashPosts)
+app.get(`/api/dashboardImage/:postId`, getDashImage)
 
 app.post(`/api/newPost`, newPost)
 app.post(`/api/newImagePost`, newImagePost)
