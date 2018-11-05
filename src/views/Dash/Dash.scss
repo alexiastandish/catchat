@@ -30,11 +30,10 @@
         font-weight: 100;
       }
     }
-
     .Dash--posts {
-      // height: 100%;
-      position: fixed;
-      width: 68%;
+      background: #ffffff;
+      flex-direction: column;
+      align-items: center;
       overflow-y: scroll;
       margin: 0 auto;
       justify-content: center;
