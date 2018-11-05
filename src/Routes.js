@@ -13,6 +13,8 @@ import SignIn from './SignIn/SignIn'
 import CurrentUser from './CurrentUser/CurrentUser'
 import Chat from './views/Chat/Chat'
 import Post from './views/Post/Post'
+import ImagePost from './views/Post/ImagePost'
+import PostPost from './views/Post/PostPost'
 
 export default function Routes(props) {
   console.log('props.isLoggedIn', props.isLoggedIn)
@@ -23,6 +25,8 @@ export default function Routes(props) {
       <Route path="/currentUser" component={CurrentUser} />
       <Route path="/chat" component={Chat} />
       <Route path="/post" component={Post} />
+      <Route path="/post/post" component={PostPost} />
+      <Route path="/post/image" component={ImagePost} />
       <Route
         exact
         path="/currentUser"

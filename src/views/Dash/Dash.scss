@@ -13,7 +13,7 @@
 
     .Dash--menubar {
       margin-bottom: 10px;
-      background: #e9ffff;
+      background: #ffffff;
       height: 60px;
       display: flex;
       justify-content: space-between;
@@ -23,7 +23,7 @@
       padding-bottom: 0px;
       padding-left: 10px;
       padding-right: 10px;
-      box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.02);
+      box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.05);
 
       h3 {
         font-family: 'Monoton', cursive;
@@ -32,14 +32,14 @@
     }
 
     .Dash--posts {
-      height: 100%;
-      background: #e9ffff;
+      // height: 100%;
       position: fixed;
       width: 68%;
       overflow-y: scroll;
       margin: 0 auto;
       justify-content: center;
       // overflow: hidden;
+      box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.05);
     }
     ::-webkit-scrollbar {
       width: 0px; /* remove scrollbar space */

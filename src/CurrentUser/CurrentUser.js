@@ -17,7 +17,7 @@ function CurrentUser({ signOut, user }) {
           </Link>
           <br />
 
-          <Link to="/post">
+          <Link to="/post/post">
             <i id="CurrentUser--button" className="fa fa-2x fa-plus-circle icon--button" />
           </Link>
           <br />
