@@ -8,10 +8,9 @@ import axios from 'axios'
 class Post extends Component {
   constructor(props) {
     super(props)
-    // this.state = { user: {} }
 
     this.addToPosts = this.addToPosts.bind(this)
-    // this.addToImages = this.addToImages.bind(this)
+    this.addToImages = this.addToImages.bind(this)
   }
 
   addToPosts(postSubject, postBody) {
@@ -19,6 +18,15 @@ class Post extends Component {
       userId: this.props.user.uid,
       postSubject,
       postBody,
+    })
+  }
+
+  addToImages(postSubject, imageURL, imageCaption) {
+    axios.post(`/api/newImagePost`, {
+      userId: this.props.user.uid,
+      postSubject,
+      imageURL,
+      imageCaption,
     })
   }
 
@@ -34,12 +42,7 @@ class Post extends Component {
           </div>
         </div>
         <Switch>
-          <Route
-            path="/post/image"
-            component={ImagePost}
-            addToPosts={this.addToPosts}
-            addToImages={this.addToImages}
-          />
+          <Route path="/post/image" render={() => <ImagePost addToImages={this.addToImages} />} />
           <Route
             path="/post/post"
             render={() => <PostPost userId={this.props.user.uid} addToPosts={this.addToPosts} />}

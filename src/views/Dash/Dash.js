@@ -30,7 +30,7 @@ class Dash extends Component {
 
           <div className="Dash--posts">
             {this.state.posts.map((post, index) => {
-              console.log('post', post)
+              // console.log('post', post)
               return (
                 <div key={index}>
                   <PostCard

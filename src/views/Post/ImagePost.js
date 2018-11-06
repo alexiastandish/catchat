@@ -8,13 +8,13 @@ class ImagePost extends Component {
     super(props)
     this.state = {
       postSubject: '',
-      postImageURL: '',
-      caption: '',
+      imageURL: '',
+      imageCaption: '',
       // mood: '',
     }
-    this.storageRef = storage.ref('/user-images').child('test')
+    this.storageRef = storage.ref('/dash').child('dash-images')
 
-    this.handlePostSubmit = this.handlePostSubmit.bind(this)
+    // this.handlePostSubmit = this.handlePostSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleImageSelect = this.handleImageSelect.bind(this)
     this.addImageURL = this.addImageURL.bind(this)
@@ -35,17 +35,17 @@ class ImagePost extends Component {
   }
 
   addImageURL(imageURL) {
-    this.setState({ postImageURL: imageURL })
+    this.setState({ imageURL })
   }
 
-  handlePostSubmit() {
-    const { postSubject } = this.state
-    this.props.addToPosts({ postSubject })
-  }
+  // handlePostSubmit() {
+  //   const { postSubject } = this.state
+  //   this.props.addToPosts({ postSubject })
+  // }
 
   handleImagePostSubmit() {
-    const { caption, postImageURL } = this.state
-    this.props.addToImages(caption, postImageURL)
+    const { postSubject, imageURL, imageCaption } = this.state
+    this.props.addToImages(postSubject, imageURL, imageCaption)
   }
 
   handleChange(event) {
@@ -57,7 +57,7 @@ class ImagePost extends Component {
     return (
       <div className="ImagePost">
         <div className="ImagePost--image--section--width">
-          <form onSubmit={this.handlePostSubmit}>
+          <form onSubmit={this.handleImagePostSubmit}>
             <div className="kitten-gif">
               <img
                 src="https://66.media.tumblr.com/0a2311d3207417c7d9ada76b9e1428d8/tumblr_os3wh3bB801uypfuuo1_400.gif"
@@ -70,12 +70,12 @@ class ImagePost extends Component {
             <label>Caption:</label>
             <textarea
               type="text"
-              name="postBody"
+              name="imageCaption"
               className="image-caption"
               onChange={this.handleChange}
             />
             <div className="firebase-image-input">
-              <FileInput />
+              <FileInput className="firebase-input" onChange={this.handleImageSelect} />
             </div>
 
             {/* <option value="happy" className="" /> */}

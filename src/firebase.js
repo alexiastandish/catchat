@@ -15,14 +15,13 @@ const base = Rebase.createClass(app.database())
 
 export { app, base }
 
-export default firebase
-
-export const database = firebase.database()
 export const auth = firebase.auth()
 export const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
 export const facebookAuthProiver = new firebase.auth.FacebookAuthProvider()
 export const emailAndPassword = new firebase.auth.EmailAuthProvider()
+export default firebase
 
+export const database = firebase.database()
 export const storage = firebase.storage()
 
 // export const doCreateUserWithEmailAndPassword = (email, password) => {

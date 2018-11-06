@@ -16,7 +16,7 @@ class PostCard extends Component {
 
   getImageCaptionAndImageURL() {
     axios.get(`/api/dashboardImage/${this.props.postId}`).then(response => {
-      console.log('response', response)
+      // console.log('response', response)
       this.setState({
         imageCaption: response.data[0] && response.data[0].image_caption,
         imageURL: response.data[0] && response.data[0].image_url,
@@ -24,8 +24,8 @@ class PostCard extends Component {
     })
   }
   render() {
-    console.log('this.state', this.state)
-    console.log('this.props', this.props)
+    // console.log('this.state', this.state)
+    // console.log('this.props', this.props)
     const { imageCaption, imageURL } = this.state
     return (
       <div className="PostCard--container">
