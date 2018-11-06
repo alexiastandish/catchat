@@ -10,6 +10,7 @@ class ImagePost extends Component {
       postSubject: '',
       imageURL: '',
       imageCaption: '',
+      isUploadingImage: false,
       // mood: '',
     }
     this.storageRef = storage.ref('/dash').child('dash-images')
@@ -19,10 +20,15 @@ class ImagePost extends Component {
     this.handleImageSelect = this.handleImageSelect.bind(this)
     this.addImageURL = this.addImageURL.bind(this)
     this.handleImagePostSubmit = this.handleImagePostSubmit.bind(this)
+    this.uploadImage = this.uploadImage.bind(this)
   }
 
   handleImageSelect(file) {
-    this.storageRef
+    this.setState({ isUploadingImage: true }, () => this.uploadImage(file))
+  }
+
+  uploadImage(file) {
+    return this.storageRef
       .child(file.name)
       .put(file, { contentType: file.type })
       .then(snapshot => {
@@ -35,13 +41,8 @@ class ImagePost extends Component {
   }
 
   addImageURL(imageURL) {
-    this.setState({ imageURL })
+    this.setState({ isUploadingImage: false, imageURL })
   }
-
-  // handlePostSubmit() {
-  //   const { postSubject } = this.state
-  //   this.props.addToPosts({ postSubject })
-  // }
 
   handleImagePostSubmit() {
     const { postSubject, imageURL, imageCaption } = this.state
@@ -74,13 +75,21 @@ class ImagePost extends Component {
               className="image-caption"
               onChange={this.handleChange}
             />
-            <div className="firebase-image-input">
-              <FileInput className="firebase-input" onChange={this.handleImageSelect} />
+            <div className="image-input">
+              <FileInput className="image-upload-input" onChange={this.handleImageSelect} />
             </div>
+
+            {this.state.imageURL !== '' && (
+              <div className="image-uploaded">
+                <img src={this.state.imageURL} alt="upload" />
+              </div>
+            )}
 
             {/* <option value="happy" className="" /> */}
 
-            <input type="submit" value="Submit" className="form-button" />
+            <button disabled={this.state.isUploadingImage} type="submit" className="form-button">
+              Submit
+            </button>
           </form>
         </div>
       </div>

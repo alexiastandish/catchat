@@ -40,17 +40,25 @@ $blue: #7af9f9;
     width: 90%;
     margin: 0 auto;
 
-    .firebase-image-input {
+    .image-uploaded img {
+      width: 50%;
+      margin: 0 auto;
+    }
+
+    .image-input {
       justify-content: center;
       display: flex;
       margin: 0 auto;
       margin-top: 30px;
-    }
 
+      .image-upload-input {
+        font-family: 'Dosis', sans-serif !important;
+      }
+    }
     .kitten-gif {
       // margin-right: 120px;
       img {
-        width: 14rem;
+        width: 4rem;
         // -webkit-filter: invert(100%);
         // filter: invert(100%);
         // -webkit-filter: opacity(50%);
