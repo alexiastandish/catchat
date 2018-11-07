@@ -46,7 +46,7 @@ class PostCard extends Component {
             <div className="image-post">
               <p>{imageCaption}</p>
               <div>
-                <img src={imageURL} />
+                <img src={imageURL} alt={imageURL} />
               </div>
             </div>
           )}

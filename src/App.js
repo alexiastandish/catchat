@@ -17,7 +17,7 @@ class App extends Component {
     this.state = {
       currentUser: null,
       currentUserInfo: {},
-      loading: true,
+      // loading: true,
     }
     this.authStateChange = this.authStateChange.bind(this)
     this.authSignOut = this.authSignOut.bind(this)
