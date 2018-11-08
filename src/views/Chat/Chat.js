@@ -9,7 +9,6 @@ class Chat extends Component {
     super(props)
 
     this.state = {
-      color: 'white',
       activeMessage: '',
       messages: [],
       listOfUsers: [],
@@ -25,7 +24,7 @@ class Chat extends Component {
     this.socket.on('server send message', message => {
       this.setState({ messages: [...this.state.messages, message] })
     })
-    console.log('this.props', this.props)
+    // console.log('this.props', this.props)
     this.getAllUsers()
   }
 
@@ -55,7 +54,7 @@ class Chat extends Component {
     axios
       .get(`/api/messageHistory/${this.props.user.uid}/${this.state.receivingUser}`)
       .then(response => {
-        console.log('response', response)
+        // console.log('response', response)
         this.setState({ messages: response.data })
       })
   }
@@ -65,9 +64,16 @@ class Chat extends Component {
     this.setState({ receivingUser: uid }, this.getMessageHistory)
   }
 
+  handleSubmit(event) {
+    event.preventDefault()
+  }
+
   render() {
-    // console.log('this.state', this.state)
-    console.log('this.props', this.props)
+    // console.log('this.state.receivingUser', this.state.receivingUser)
+    // console.log('this.state.messages', this.state.messages)
+    // console.log('this.props', this.props)
+    // console.log('this.state.listOfUsers', this.state.listOfUsers)
+
     return (
       <div className="Chat--conatiner">
         <section className="user--list">
@@ -83,34 +89,48 @@ class Chat extends Component {
             })}
         </section>
         {this.state.messages.map((message, index) => (
-          <div key={index}>{message.message}</div>
+          <div className="chat--container" key={index}>
+            {message.receiving_user_uid === this.state.receivingUser && (
+              <div style={{ fontSize: '14px', color: 'red' }}>
+                {message.receiving_username}
+                <p>{message.message}</p>
+              </div>
+            )}
+            <div style={{ fontSize: '14px', color: 'blue' }}>
+              {message.sending_username}
+              <p>{message.message}</p>
+            </div>
+          </div>
         ))}
+        <form onSubmit={this.handleSubmit}>
+          <input
+            onChange={e => {
+              this.setState({ activeMessage: e.target.value })
+            }}
+            value={this.state.activeMessage}
+            type="text"
+          />
 
-        <input
-          onChange={e => {
-            this.setState({ activeMessage: e.target.value })
-          }}
-          value={this.state.activeMessage}
-          type="text"
-        />
-        <button
-          onClick={() => {
-            console.log('sending')
-            const message = {
-              message: this.state.activeMessage,
-              receivingUser: this.state.receivingUser,
-              sendingUser: this.props.user.uid,
-            }
+          <button
+            type="submit"
+            onClick={() => {
+              console.log('sending')
+              const message = {
+                message: this.state.activeMessage,
+                receivingUser: this.state.receivingUser,
+                sendingUser: this.props.user.uid,
+              }
 
-            axios.post('/api/postMessage', message).then(() => {
-              Promise.resolve(this.socket.emit('client send message', message)).then(() => {
-                this.setState({ activeMessage: '' })
+              axios.post('/api/postMessage', message).then(() => {
+                Promise.resolve(this.socket.emit('client send message', message)).then(() => {
+                  this.setState({ activeMessage: '' })
+                })
               })
-            })
-          }}
-        >
-          Post message
-        </button>
+            }}
+          >
+            Post message
+          </button>
+        </form>
         {/* <button onClick={this.sendMessage}>Post message</button> */}
       </div>
     )

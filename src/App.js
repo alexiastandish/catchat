@@ -17,23 +17,15 @@ class App extends Component {
     this.state = {
       currentUser: null,
       currentUserInfo: {},
-      // loading: true,
+      loading: true,
     }
     this.authStateChange = this.authStateChange.bind(this)
     this.authSignOut = this.authSignOut.bind(this)
     this.postUser = this.postUser.bind(this)
-    this.getCurrentUser = this.getCurrentUser.bind(this)
   }
 
   componentDidMount() {
     this.authStateChange()
-    // this.getCurrentUser()
-  }
-
-  getCurrentUser() {
-    axios.get(`/api/currentUser/${this.state.currentUser.uid}`).then(response => {
-      console.log('response', response)
-    })
   }
 
   authStateChange() {
@@ -51,8 +43,8 @@ class App extends Component {
   }
 
   postUser() {
-    console.log('posting current user')
-    console.log('this.state.currentUser.uid', this.state.currentUser.uid)
+    // console.log('posting current user')
+    // console.log('this.state.currentUser.uid', this.state.currentUser.uid)
     axios.post(`/api/currentUser/${this.state.currentUser.uid}`, {
       email: this.state.currentUser.email,
       userPhotoURL: this.state.currentUser.photoURL,

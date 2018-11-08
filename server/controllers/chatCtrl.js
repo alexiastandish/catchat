@@ -23,7 +23,7 @@ const postMessage = (req, res) => {
   db.chat
     .postNewMessage([req.body.sendingUser, req.body.receivingUser, req.body.message])
     .then(response => {
-      console.log('responseMESSAGE', response)
+      // console.log('responseMESSAGE', response)
       return res.status(200).json(response)
     })
     .catch(err => console.log('err', err))
