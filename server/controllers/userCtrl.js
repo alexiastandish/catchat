@@ -22,9 +22,18 @@ const getCurrentUser = (req, res) => {
   })
 }
 
+const getUsers = (req, res) => {
+  const db = req.app.get('db')
+  db.user.getAllUsers().then(response => {
+    console.log('response', response)
+    res.status(200).json(response)
+  })
+}
+
 module.exports = {
   getCurrentUser,
   newUser,
+  getUsers,
 }
 
 // passport.serializeUser((user, done) => {

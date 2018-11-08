@@ -13,7 +13,7 @@ export default function Routes(props) {
     <Switch>
       <Route path="/dash" render={() => <Dash {...props && { ...props }} />} />
       <Route path="/currentUser" component={CurrentUser} />
-      <Route path="/chat" component={Chat} />
+      <Route path="/chat" render={() => <Chat {...props && { ...props }} />} />
       <Route path="/post" render={() => <Post {...props} />} />
       <Route path="/signUp" component={SignUp} />
       {props && props.isLoggedIn && <Redirect to="/dash" />} />

@@ -4,7 +4,7 @@ import './CurrentUser.scss'
 import { Link } from 'react-router-dom'
 
 function CurrentUser({ signOut, user }) {
-  console.log('user', user)
+  // console.log('user', user)
   return (
     <div className="CurrentUser">
       <div className="CurrentUser--container">

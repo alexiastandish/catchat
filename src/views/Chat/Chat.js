@@ -1,42 +1,104 @@
 import React, { Component } from 'react'
 import socketIOClient from 'socket.io-client'
-// import io from 'socket.io-client'
+import axios from 'axios'
+
+const ENDPOINT = 'localhost:8000'
 
 class Chat extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      endpoint: 'localhost:8000', // this is where we are connecting to with sockets
       color: 'white',
+      activeMessage: '',
+      messages: [],
+      listOfUsers: [],
+      receivingUser: null,
     }
-    // this.send = this.send.bind(this)
+
+    this.socket = socketIOClient(ENDPOINT)
+    this.getAllUsers = this.getAllUsers.bind(this)
+    this.getMessageHistory = this.getMessageHistory.bind(this)
   }
 
-  send = () => {
-    const socket = socketIOClient(this.state.endpoint)
-    socket.emit('change color', this.state.color) // change 'red' to this.state.color
+  componentDidMount() {
+    this.socket.on('server send message', message => {
+      this.setState({ messages: [...this.state.messages, message] })
+    })
+    this.getAllUsers()
   }
 
-  setColor = color => {
-    this.setState({ color })
+  getAllUsers() {
+    axios.get('/api/getAllUsers').then(response => {
+      this.setState({ listOfUsers: response.data })
+    })
+  }
+  // TODO: componentWillUnmount(){
+  //   // clean up once user leaves page
+  // }
+
+  sendMessage() {
+    this.socket
+      .emit('client send message', {
+        message: this.state.activeMessage,
+        receivingUser: this.state.receivingUser,
+        sendingUser: this.props.user.uid,
+      })
+      .then(() => {
+        this.setState({ activeMessage: '' })
+      })
+  }
+
+  getMessageHistory() {
+    axios
+      .get(`/api/messageHistory/${this.props.user.uid}/${this.state.receivingUser}`)
+      .then(response => {
+        console.log('response', response)
+        this.setState({ messages: response.data })
+      })
+  }
+
+  handleUserSelection(uid) {
+    console.log('uid', uid)
+    this.setState({ receivingUser: uid }, this.getMessageHistory)
   }
 
   render() {
-    console.log('this.state', this.state)
-    const socket = socketIOClient(this.state.endpoint)
-    socket.on('change color', color => {
-      document.body.style.backgroundColor = color
-    })
+    // console.log('this.state', this.state)
     return (
-      <div style={{ textAlign: 'center' }}>
-        <button onClick={() => this.send()}>Change Color</button>
-        <button id="blue" onClick={() => this.setColor('blue')}>
-          Blue
+      <div className="Chat--conatiner">
+        <section className="user--list">
+          {this.state.listOfUsers &&
+            this.state.listOfUsers.map(user => {
+              return (
+                <div key={user.uid}>
+                  <button onClick={() => this.handleUserSelection(user.uid)}>
+                    {user.username}
+                  </button>
+                </div>
+              )
+            })}
+        </section>
+        {this.state.messages.map((message, index) => (
+          <div key={index}>{message.message}</div>
+        ))}
+
+        <input
+          onChange={e => {
+            this.setState({ activeMessage: e.target.value })
+          }}
+          value={this.state.activeMessage}
+          type="text"
+        />
+        <button
+          onClick={() => {
+            this.socket.emit('client send message', this.state.activeMessage)
+            this.setState({ activeMessage: '' })
+          }}
+        >
+          Post message
         </button>
-        <button id="red" onClick={() => this.setColor('red')}>
-          Red
-        </button>
+        {/* <button onClick={this.sendMessage}>Post message</button> */}
       </div>
     )
   }

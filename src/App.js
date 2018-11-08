@@ -61,7 +61,7 @@ class App extends Component {
   }
 
   render() {
-    console.log('this.state', this.state)
+    // console.log('this.state', this.state)
 
     const { currentUser, loading } = this.state
     if (loading === true) {

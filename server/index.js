@@ -14,9 +14,9 @@ const express = require('express'),
 io.on('connection', socket => {
   console.log('New client connected')
 
-  socket.on('change color', color => {
-    console.log('Color Changed to: ', color)
-    io.sockets.emit('change color', color)
+  socket.on('client send message', message => {
+    console.log('save to the db ', message)
+    io.sockets.emit('server send message', message)
   })
 
   socket.on('disconnect', () => {
@@ -29,6 +29,7 @@ require('dotenv').config()
 const { getCurrentUser, newUser } = require('./controllers/userCtrl')
 const { getDashPosts, getDashImage } = require('./controllers/dashCtrl')
 const { newPost, newImagePost } = require('./controllers/postCtrl')
+const { getAllUsers, getChatHistory } = require('./controllers/chatCtrl')
 // const { strategy, getUser } = require('./controllers/authCtrl')
 // const LocalStrategy = require('passport-local').Strategy
 
@@ -100,13 +101,33 @@ passport.deserializeUser((user, done) => {
 // )
 
 // app.get('/api/currentUser', getUser)
+
+// TODO: Setting up chat
+// 1. Tables: messages BACKEND [DONE!]
+// 2. Create backend endpoint for getting users BACKEND [DONE!]
+// 3. Get those users FRONTEND [DONE!]
+// 4. Select a user that you want to chat with FRONTEND
+// (AXIOS) when you select a user it should get all of the messages between those two users and render on front end
+// 5. Send a message to that user FRONTEND (with socketio) [DONE!]
+// 6. Save message to the messages table (post endpoint) BACKEND
+// 7. Emit that a message was sent BACKEND (with socketio) [DONE!]
+// 8. Listen for messages being sent FRONTEND [DONE!]
+
+// user endpoints
 app.get(`/api/currentUser/:userId`, getCurrentUser)
 app.post(`/api/currentUser/:userId`, newUser)
+
+// dash endpoints
 app.get('/api/dashboard', getDashPosts)
 app.get(`/api/dashboardImage/:postId`, getDashImage)
 
+// post endpoints
 app.post(`/api/newPost`, newPost)
 app.post(`/api/newImagePost`, newImagePost)
+
+// chat endpoints
+app.get('/api/getAllUsers', getAllUsers)
+app.get('/api/messageHistory/:sendingUser/:receivingUser', getChatHistory)
 
 io.listen(portIO)
 console.log('listening on port ', portIO)
