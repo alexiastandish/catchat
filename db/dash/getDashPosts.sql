@@ -1,5 +1,5 @@
 select p.post_id, p.post_time, p.post_title, p.post_body, 
-u.user_photo, u.username
+u.user_photo, u.username, u.uid
 -- c.comment_time, c.comment_body
 -- im.image_caption, im.image_url
 from posts p

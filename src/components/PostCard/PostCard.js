@@ -23,9 +23,9 @@ class PostCard extends Component {
       })
     })
   }
+
   render() {
-    // console.log('this.state', this.state)
-    // console.log('this.props', this.props)
+    console.log('this.props', this.props)
     const { imageCaption, imageURL } = this.state
     return (
       <div className="PostCard--container">
@@ -49,6 +49,17 @@ class PostCard extends Component {
                 <img src={imageURL} alt={imageURL} />
               </div>
             </div>
+          )}
+        </div>
+        <div className="editable--buttons">
+          {this.props.currentUser === this.props.uid && (
+            <button
+              onClick={() => {
+                this.props && this.props.deletePost(this.props.postId)
+              }}
+            >
+              EDITABLE BUTTONS
+            </button>
           )}
         </div>
       </div>

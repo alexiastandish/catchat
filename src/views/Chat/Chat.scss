@@ -68,11 +68,14 @@ $blue: #7af9f9;
     .input--section {
       width: 100%;
       align-content: flex-end;
+
       .new--chat--input {
         width: 80%;
+        height: 30px;
       }
       button {
         width: 20%;
+        height: 30px;
       }
     }
   }

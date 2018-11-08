@@ -25,6 +25,7 @@
     flex-direction: column;
     margin: 0 auto;
     justify-content: center;
+    // align-content: space-between;
     .CurrentUser--photo {
       // max-height: 200px;
       width: 80%;
@@ -41,12 +42,13 @@
     justify-content: center;
     flex-direction: column;
     height: 100%;
-    margin: 0 auto;
+    margin: 20px auto;
 
     a {
       color: #7af9f9;
       justify-content: center;
       margin: 0 auto;
+      margin-top: 20%;
       // transition: all 0.5s ease;
       -webkit-transition: all 0.35s ease;
       -moz-transition: all 0.35s ease;
@@ -58,6 +60,7 @@
       // color: #7af9f9;
       justify-content: center;
       margin: 0 auto;
+      margin-top: 20%;
       -webkit-animation: bounce 0.25s 2 linear alternate;
       -moz-animation: bounce 0.25s 2 linear alternate;
       -o-animation: bounce 0.25s 2 linear alternate;

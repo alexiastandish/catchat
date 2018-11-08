@@ -1,4 +1,4 @@
-const axios = require('axios')
+// const axios = require('axios')
 const express = require('express'),
   bodyParser = require('body-parser'),
   app = express(),
@@ -14,7 +14,7 @@ const express = require('express'),
 require('dotenv').config()
 
 const { getCurrentUser, newUser } = require('./controllers/userCtrl')
-const { getDashPosts, getDashImage } = require('./controllers/dashCtrl')
+const { getDashPosts, getDashImage, removePost } = require('./controllers/dashCtrl')
 const { newPost, newImagePost } = require('./controllers/postCtrl')
 const { getAllUsers, getChatHistory, postMessage } = require('./controllers/chatCtrl')
 
@@ -119,6 +119,7 @@ app.post(`/api/currentUser/:userId`, newUser)
 // dash endpoints
 app.get('/api/dashboard', getDashPosts)
 app.get(`/api/dashboardImage/:postId`, getDashImage)
+app.delete(`/api/removePost/:postId`, removePost)
 
 // post endpoints
 app.post(`/api/newPost`, newPost)
