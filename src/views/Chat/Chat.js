@@ -25,11 +25,12 @@ class Chat extends Component {
     this.socket.on('server send message', message => {
       this.setState({ messages: [...this.state.messages, message] })
     })
+    console.log('this.props', this.props)
     this.getAllUsers()
   }
 
   getAllUsers() {
-    axios.get('/api/getAllUsers').then(response => {
+    axios.get(`/api/getAllUsers/${this.props.user.uid}`).then(response => {
       this.setState({ listOfUsers: response.data })
     })
   }
@@ -38,6 +39,7 @@ class Chat extends Component {
   // }
 
   sendMessage() {
+    console.log('sending')
     this.socket
       .emit('client send message', {
         message: this.state.activeMessage,
@@ -65,6 +67,7 @@ class Chat extends Component {
 
   render() {
     // console.log('this.state', this.state)
+    console.log('this.props', this.props)
     return (
       <div className="Chat--conatiner">
         <section className="user--list">
@@ -92,8 +95,18 @@ class Chat extends Component {
         />
         <button
           onClick={() => {
-            this.socket.emit('client send message', this.state.activeMessage)
-            this.setState({ activeMessage: '' })
+            console.log('sending')
+            const message = {
+              message: this.state.activeMessage,
+              receivingUser: this.state.receivingUser,
+              sendingUser: this.props.user.uid,
+            }
+
+            axios.post('/api/postMessage', message).then(() => {
+              Promise.resolve(this.socket.emit('client send message', message)).then(() => {
+                this.setState({ activeMessage: '' })
+              })
+            })
           }}
         >
           Post message

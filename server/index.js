@@ -1,3 +1,4 @@
+const axios = require('axios')
 const express = require('express'),
   bodyParser = require('body-parser'),
   app = express(),
@@ -10,6 +11,12 @@ const express = require('express'),
   passport = require('passport'),
   portIO = 8000,
   io = require('socket.io')()
+require('dotenv').config()
+
+const { getCurrentUser, newUser } = require('./controllers/userCtrl')
+const { getDashPosts, getDashImage } = require('./controllers/dashCtrl')
+const { newPost, newImagePost } = require('./controllers/postCtrl')
+const { getAllUsers, getChatHistory, postMessage } = require('./controllers/chatCtrl')
 
 io.on('connection', socket => {
   console.log('New client connected')
@@ -24,12 +31,6 @@ io.on('connection', socket => {
   })
 })
 
-require('dotenv').config()
-
-const { getCurrentUser, newUser } = require('./controllers/userCtrl')
-const { getDashPosts, getDashImage } = require('./controllers/dashCtrl')
-const { newPost, newImagePost } = require('./controllers/postCtrl')
-const { getAllUsers, getChatHistory } = require('./controllers/chatCtrl')
 // const { strategy, getUser } = require('./controllers/authCtrl')
 // const LocalStrategy = require('passport-local').Strategy
 
@@ -63,9 +64,7 @@ passport.serializeUser((user, done) => {
   db.user
     .getUserAuth([user.uid])
     .then(response => {
-      console.log(response)
       if (!response[0]) {
-        console.log(response)
         db.user
           .addNewUser([user.uid, user.email, user.user_photo, user.username])
           .then(res => done(null, res[0]))
@@ -126,8 +125,9 @@ app.post(`/api/newPost`, newPost)
 app.post(`/api/newImagePost`, newImagePost)
 
 // chat endpoints
-app.get('/api/getAllUsers', getAllUsers)
+app.get('/api/getAllUsers/:userId', getAllUsers)
 app.get('/api/messageHistory/:sendingUser/:receivingUser', getChatHistory)
+app.post('/api/postMessage', postMessage)
 
 io.listen(portIO)
 console.log('listening on port ', portIO)

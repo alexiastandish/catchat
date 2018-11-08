@@ -1,2 +1,3 @@
 SELECT uid, user_photo, username
-FROM users;
+FROM users
+WHERE uid <> $1;
