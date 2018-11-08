@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import socketIOClient from 'socket.io-client'
 import axios from 'axios'
-
+import './Chat.scss'
 const ENDPOINT = 'localhost:8000'
 
 class Chat extends Component {
@@ -75,62 +75,68 @@ class Chat extends Component {
     // console.log('this.state.listOfUsers', this.state.listOfUsers)
 
     return (
-      <div className="Chat--conatiner">
-        <section className="user--list">
-          {this.state.listOfUsers &&
-            this.state.listOfUsers.map(user => {
-              return (
-                <div key={user.uid}>
-                  <button onClick={() => this.handleUserSelection(user.uid)}>
-                    {user.username}
-                  </button>
-                </div>
-              )
-            })}
+      <div className="Chat--container">
+        <section className="Chat--section--header">
+          <h3>Chats</h3>
+          <div className="user--list">
+            {this.state.listOfUsers &&
+              this.state.listOfUsers.map(user => {
+                return (
+                  <div className="user--buttons" key={user.uid}>
+                    <button onClick={() => this.handleUserSelection(user.uid)}>
+                      {user.username}
+                    </button>
+                  </div>
+                )
+              })}
+          </div>
         </section>
-        {this.state.messages.map((message, index) => (
-          <div className="chat--container" key={index}>
-            {message.receiving_user_uid === this.state.receivingUser && (
-              <div style={{ fontSize: '14px', color: 'red' }}>
-                {message.receiving_username}
+        <section className="Chat--section--chatroom">
+          {this.state.messages.map((message, index) => (
+            <div className="chat--container" key={index}>
+              {/* {message.receiving_user_uid === this.state.receivingUser && (
+                // <div className="receiving--user">
+                //   {message.receiving_username}
+                //   <p>{message.message}</p>
+                // </div>
+              )} */}
+              <div className="sending--user">
+                {message.sending_username}
                 <p>{message.message}</p>
               </div>
-            )}
-            <div style={{ fontSize: '14px', color: 'blue' }}>
-              {message.sending_username}
-              <p>{message.message}</p>
             </div>
-          </div>
-        ))}
-        <form onSubmit={this.handleSubmit}>
-          <input
-            onChange={e => {
-              this.setState({ activeMessage: e.target.value })
-            }}
-            value={this.state.activeMessage}
-            type="text"
-          />
+          ))}
+          <form className="input--section" onSubmit={this.handleSubmit}>
+            <input
+              className="new--chat--input"
+              onChange={e => {
+                this.setState({ activeMessage: e.target.value })
+              }}
+              value={this.state.activeMessage}
+              type="text"
+            />
 
-          <button
-            type="submit"
-            onClick={() => {
-              console.log('sending')
-              const message = {
-                message: this.state.activeMessage,
-                receivingUser: this.state.receivingUser,
-                sendingUser: this.props.user.uid,
-              }
+            <button
+              type="submit"
+              onClick={() => {
+                console.log('sending')
+                const message = {
+                  message: this.state.activeMessage,
+                  receivingUser: this.state.receivingUser,
+                  sendingUser: this.props.user.uid,
+                }
 
-              axios.post('/api/postMessage', message).then(() => {
-                Promise.resolve(this.socket.emit('client send message', message)).then(() => {
-                  this.setState({ activeMessage: '' })
+                axios.post('/api/postMessage', message).then(() => {
+                  Promise.resolve(this.socket.emit('client send message', message)).then(() => {
+                    this.setState({ activeMessage: '' })
+                  })
                 })
-              })
-            }}
-          >
-            Post message
-          </button>
-        </form>
+              }}
+            >
+              Post message
+            </button>
+          </form>
+        </section>
         {/* <button onClick={this.sendMessage}>Post message</button> */}
       </div>
     )
