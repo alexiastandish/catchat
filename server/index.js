@@ -14,7 +14,7 @@ const express = require('express'),
 require('dotenv').config()
 
 const { getCurrentUser, newUser } = require('./controllers/userCtrl')
-const { getDashPosts, getDashImage, removePost } = require('./controllers/dashCtrl')
+const { getDashPosts, getDashImage, removePost, editPost } = require('./controllers/dashCtrl')
 const { newPost, newImagePost } = require('./controllers/postCtrl')
 const { getAllUsers, getChatHistory, postMessage } = require('./controllers/chatCtrl')
 
@@ -78,13 +78,6 @@ passport.deserializeUser((user, done) => {
   done(null, user)
 })
 
-// io.on('connection', socket => {
-//   socket.emit('messageFromServer', { data: 'Welcome to the socketio server' })
-//   socket.on('messageToServer', dataFromClient => {
-//     console.log('dataFromClient', dataFromClient)
-//   })
-// })
-
 // passport.use(
 //   'local.signup',
 //   new LocalStrategy(
@@ -120,6 +113,7 @@ app.post(`/api/currentUser/:userId`, newUser)
 app.get('/api/dashboard', getDashPosts)
 app.get(`/api/dashboardImage/:postId`, getDashImage)
 app.delete(`/api/removePost/:postId`, removePost)
+app.put(`/api/editPost/:postId`, editPost)
 
 // post endpoints
 app.post(`/api/newPost`, newPost)

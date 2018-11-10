@@ -11,11 +11,11 @@ class Dash extends Component {
       currentUser: '',
     }
     this.deletePost = this.deletePost.bind(this)
+    this.editPost = this.editPost.bind(this)
   }
 
   componentDidMount() {
     axios.get('/api/dashboard').then(response => {
-      console.log('response', response)
       this.setState({ posts: response.data })
     })
   }
@@ -24,8 +24,17 @@ class Dash extends Component {
     axios.delete(`/api/removePost/${postId}`)
   }
 
+  editPost({ postId, postTitle, postBody }) {
+    console.log('postId, postTitle, postBody', postId, postTitle, postBody)
+    axios.put(`/api/editPost/${postId}`, {
+      postTitle,
+      postBody,
+    })
+  }
+
   render() {
     console.log('this.props', this.props)
+    console.log('this.state', this.state)
     return (
       <div className="Dash--container">
         <div className="Dash--section--width">
@@ -51,6 +60,7 @@ class Dash extends Component {
                     postId={post.post_id}
                     currentUser={this.props.user && this.props.user.uid}
                     deletePost={this.deletePost}
+                    editPost={this.editPost}
                   />
                 </div>
               )

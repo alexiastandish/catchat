@@ -26,8 +26,17 @@ const removePost = (req, res) => {
     .catch(err => console.log('err', err))
 }
 
+const editPost = (req, res) => {
+  const { postId } = req.params
+  const { postTitle, postBody } = req.body
+  const db = req.app.get('db')
+  db.dash.editMyPost([postId, postTitle, postBody])
+  return res.sendStatus(200)
+}
+
 module.exports = {
   getDashPosts,
   getDashImage,
   removePost,
+  editPost,
 }
