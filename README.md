@@ -26,7 +26,7 @@ Cat Chat is a social media platform about cats and provides the ability for user
 Use the package manager npm to install store
 
 ```
-$ cd ../helo
+$ cd ../catchat
 $ npm install
 $ npm start
 ```
